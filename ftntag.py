@@ -5,7 +5,7 @@ class FtnBaseTag(object):
             self.classes.extend(initialclasses)
         self.propBuffer = {}
 
-    def _parse(self, stringa):
+    def parse(self, stringa):
         if stringa is not None:
             strip1 = stringa.split('\r\n')
             for i in strip1:
@@ -15,16 +15,16 @@ class FtnBaseTag(object):
                     valori = strip2[1].split(',')
                     self.propBuffer[chiave] = valori
 
-    def _getclasses(self):
+    def getclasses(self):
         if 'ftnclass' in self.propBuffer:
             for i in self.propBuffer['ftnclass']:
                 self.classes.append(i)
 
-    def _updatepropbuffer(self):
+    def updatepropbuffer(self):
         if len(self.classes) > 0:
             self.propBuffer['ftnclass'] = self.classes
 
-    def _renderpropbuffer(self):
+    def renderpropbuffer(self):
         outputstring = ''
         for i in self.propBuffer.keys():
             outputstring += i + ' = '
@@ -33,7 +33,6 @@ class FtnBaseTag(object):
             outputstring = outputstring[:-1]
             outputstring += "\r\n"
         return outputstring
-
 
     def getfromnode(self, node):
         pass
@@ -47,9 +46,9 @@ class FtnBaseTag(object):
     def addclass(self, classe):
         if self.hasclass(classe) is False:
             self.classes.append(classe)
-            self._updatepropbuffer()
+            self.updatepropbuffer()
 
     def removeclass(self, classe):
         if self.hasclass(classe) is True:
             self.classes.remove(classe)
-            self._updatepropbuffer()
+            self.updatepropbuffer()
