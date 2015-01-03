@@ -21,3 +21,9 @@ class FtnSelector(FtnBaseSelector):
     def __init__(self, inodescollection):
         super(FtnSelector, self).__init__(inodescollection)
         self.tagger = FtnTag()
+
+    def maxselect(self):
+        lista = MaxPlus.INodeTab()
+        for i in self.selection:
+            lista.Append(i)
+        MaxPlus.SelectionManager.SelectNodes(lista)
